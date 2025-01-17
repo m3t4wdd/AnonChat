@@ -17,9 +17,8 @@ Note: The private key is only stored on the host PC and is never transmitted to 
 Tkinter 8.6
 
 # Run
-server: python3 server.py
-Client: python3 main.py
+- server: python3 server.py
+- Client: python3 main.py
 
 # Author
-m3t4d00m
-
+Reddit - [m3t4d00m](https://www.reddit.com/user/METRWD/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
