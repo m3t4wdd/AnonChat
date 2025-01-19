@@ -22,3 +22,8 @@ Tkinter 8.6
 
 # Author
 Reddit - [m3t4d00m](https://www.reddit.com/user/METRWD/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+
+# Screenshot
+![image](https://github.com/user-attachments/assets/c06ff952-d26d-4767-8227-f7a7dd531db9)
+![image](https://github.com/user-attachments/assets/88f3fd75-44a2-479c-9fb4-8beb9d50f1f9)
+
