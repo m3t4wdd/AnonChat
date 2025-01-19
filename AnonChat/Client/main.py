@@ -3,6 +3,7 @@ from tkinter import messagebox
 import key, socket, threading, json, base64
 from datetime import datetime
 import enc_dec_msg as encryption
+from key_window import KeyWindow
 
 class KeyManager:
     """Gestisce la generazione e la gestione delle chiavi."""
@@ -26,41 +27,6 @@ class ChatApp:
     def __init__(self, client, key_manager):
         self.client = client
         self.key_manager = key_manager
-
-    def display_key_window(self):
-        self.key_manager.generate_keys()
-
-        self.key_window = Tk()
-        self.key_window.title("AnonChat")
-        self.key_window.geometry("500x600")
-        self.key_window.resizable(True, True)
-
-        frame = Frame(self.key_window, bg="lightgrey", padx=10, pady=10)
-        frame.pack(pady=20)
-
-        def copy_to_clipboard(dtxt):
-            self.key_window.clipboard_clear()
-            self.key_window.clipboard_append(dtxt)
-            label2.config(text="Public Key Copied")
-
-        Label(frame, text="Public Key:", font=("Arial", 10, "bold"), bg="lightgrey").pack(anchor="w", padx=10, pady=(10, 0))
-        pub_box = Text(frame, wrap="word", height=5, width=70)
-        pub_box.insert("1.0", self.key_manager.pub_key)
-        pub_box.pack(padx=10, pady=5)
-        pub_box.config(state="disabled")
-
-        Button(frame, text='Copy', relief="raised", bd=3, cursor="hand2", command=lambda: copy_to_clipboard(self.key_manager.pub_key)).pack()
-
-        label2 = Label(frame, font=("Arial", 10, "bold"), fg="blue", bg="lightgrey", justify="left")
-        label2.pack(anchor="center", padx=10, pady=(10, 0))
-
-        label = Label(frame, text="WARNING!\n\n- Upon closing the program, the keys (public and private) will be irreversibly changed, rendering the conversation inaccessible:", font=("Arial", 10, "bold"), fg="red", bg="lightgrey", justify="left")
-        label.pack(anchor="center", padx=10, pady=(10, 0))
-        label.bind('<Configure>', lambda e: label.config(wraplength=label.winfo_width()))
-
-        Button(self.key_window, text="Start Chat", command=self.key_window.destroy, relief="raised", bd=3, cursor="hand2").pack(pady=10)
-
-        self.key_window.mainloop()
 
     def display_chat_window(self):
         self.chat_window = Tk()
@@ -149,7 +115,7 @@ class ChatApp:
                     self.text_box.config(state="normal")
 
 
-                    self.text_box.insert(END, f"{msg.decode("utf-8")} | {time} \n", "mine")
+                    self.text_box.insert(END, f"{msg.decode('utf-8')} | {time} \n", "mine")
                     self.text_box.config(state="disabled")
 
                     
@@ -163,7 +129,7 @@ class ChatApp:
     def receive_message(self, message):
         time = datetime.now().strftime("%H:%M")
         self.text_box.config(state="normal")
-        self.text_box.insert(END, f"{message.replace("\x00", "")} | {time} \n")
+        self.text_box.insert(END, f"{message.replace('\x00', '')} | {time} \n")
         self.text_box.config(state="disabled")
 
 
@@ -216,5 +182,6 @@ if __name__ == "__main__":
     app = ChatApp(client, key_manager)
     client.app = app
 
-    app.display_key_window()
+    key_window = KeyWindow(key_manager)
+    key_window.display_key_window()
     app.display_chat_window()
