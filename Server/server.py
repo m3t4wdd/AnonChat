@@ -1,13 +1,24 @@
 import socket, json, threading
 import peers.tables as tables
 
-# Funzione per gestire ogni client connesso
-def handle_client(client_socket, clients, addr):
-    try:
-        while True:
-            message = client_socket.recv(1024).decode("utf-8")
-            if message:
-                # Aggiunge peer alla tables
+class Server:
+# gestisco ogni client connesso
+    def handle_client(self, client_socket, clients, addr):
+        try:
+            while True:
+
+                message = client_socket.recv(1024).decode("utf-8")
+
+                if not message:
+                    print("client removed: " + str(addr))
+                    if client_socket in clients:
+                        tables.del_peer(tuple(addr))
+                        clients.remove(client_socket)
+                        client_socket.close()
+                    break
+
+
+
                 if message.startswith('{"ip":') and message.endswith('}'):
                     #message = message.replace("\x00", "")
                     data = json.loads(message)
@@ -18,8 +29,9 @@ def handle_client(client_socket, clients, addr):
                 # Un client vuole recapitare un messaggio
                 elif message.startswith('{"msg":') and message.endswith('}'):
                     data = json.loads(message)
-
-                    cypher_b64, key = (data["msg"]), data["key"].replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "").replace("\n", "") #qui, ricevo cypher e devo mandare a dst
+                    
+                    #qui, ricevo cypher e devo mandare a dst
+                    cypher_b64, key = (data["msg"]), data["key"].replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "").replace("\n", "")
                     sock = tables.get_ip_port(key)
 
                     if sock is None:
@@ -34,35 +46,30 @@ def handle_client(client_socket, clients, addr):
                                 if raddr == (target_ip, target_port):
                                     client.sendall(str(cypher_b64).encode("utf-8"))
                                     break 
-            else:
-                print("client removed: " + str(addr))
-                tables.del_peer(tuple(addr))
-                clients.remove(client)
-                client.close()
+        except Exception as e:
+            print(f"Error: {str(e)}")
 
-    except Exception as e:
-        pass
+    def start_server(self):      
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.bind(("0.0.0.0", 5555))
+        server.listen(5)
+        print("listening...\n\n")
 
-def start_server():      
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind(("0.0.0.0", 5555))  # Ascolta su tutte le interfacce e porta 5555
-    server.listen(5)
-    print("listening...\n\n")
+        clients  = []
+        clients_lock = threading.Lock()
 
-    clients  = []
-    clients_lock = threading.Lock()
-
-        
-    while True:
-        client_socket, addr = server.accept()
-        print(f"Connection from {addr}")
-        with clients_lock:  # Protezione durante l'aggiunta
-            clients.append(client_socket)
             
-        # Crea un thread per ogni client che si connette
-        client_thread = threading.Thread(target=handle_client, args=(client_socket, clients, addr))
-        client_thread.start()
+        while True:
+            client_socket, addr = server.accept()
+            print(f"Connection from {addr}")
+            with clients_lock:  # Protezione durante l'aggiunta
+                clients.append(client_socket)
+                
+            # Create a thread as soon as a client connect
+            client_thread = threading.Thread(target=self.handle_client, args=(client_socket, clients, addr))
+            client_thread.start()
 
     
 if __name__ == "__main__":
-    start_server()
+    server = Server()
+    server.start_server()

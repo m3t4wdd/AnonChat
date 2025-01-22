@@ -274,6 +274,18 @@ files = [
 ]
 
 [[package]]
+name = "python-vlc"
+version = "3.0.21203"
+description = "VLC bindings for python."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "python_vlc-3.0.21203-py3-none-any.whl", hash = "sha256:1613451a31b692ec276296ceeae0c0ba82bfc2d094dabf9aceb70f58944a6320"},
+    {file = "python_vlc-3.0.21203.tar.gz", hash = "sha256:52d0544b276b11e58b6c0b748c3e0518f94f74b1b4cd328c83a59eacabead1ec"},
+]
+
+[[package]]
 name = "requests"
 version = "2.32.3"
 description = "Python HTTP for Humans."
@@ -316,4 +328,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "35a818de89dab941bcdb64fb054834d3ad9b98acb098af286ced2634dc04377b"
+content-hash = "bf0f501b61be324846b9c7fb0b83de189855cb555ffddcd4d1a8911c417f647a"

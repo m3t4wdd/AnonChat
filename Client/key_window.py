@@ -7,34 +7,50 @@ class KeyWindow:
     def display_key_window(self):
         self.key_manager.generate_keys()
 
+        # Finestra principale
         self.key_window = Tk()
-        self.key_window.title("AnonChat")
+        self.key_window.title("AnonChat - Key")
         self.key_window.geometry("500x600")
         self.key_window.resizable(True, True)
+        self.key_window.configure(bg="#1F1F1F")  # Sfondo scuro per un design moderno
 
-        frame = Frame(self.key_window, bg="lightgrey", padx=10, pady=10)
-        frame.pack(pady=20)
+        # Frame principale
+        frame = Frame(self.key_window, bg="#2E2E2E", padx=20, pady=20)  # Sfondo grigio scuro per il frame
+        frame.pack(pady=20, padx=10)
 
+        # Funzione per copiare nella clipboard
         def copy_to_clipboard(dtxt):
             self.key_window.clipboard_clear()
             self.key_window.clipboard_append(dtxt)
-            label2.config(text="Public Key Copied")
+            label2.config(text="Public Key Copied", fg="#4CAF50")
 
-        Label(frame, text="Public Key:", font=("Arial", 10, "bold"), bg="lightgrey").pack(anchor="w", padx=10, pady=(10, 0))
-        pub_box = Text(frame, wrap="word", height=5, width=70)
+        # Titolo e Box per la Public Key
+        Label(frame, text="Public Key:", font=("Arial", 12, "bold"), bg="#2E2E2E", fg="#FFFFFF").pack(anchor="w", pady=(10, 5))
+        pub_box = Text(frame, wrap="word", height=5, width=60, bg="#1F1F1F", fg="#FFFFFF", font=("Arial", 10), relief="flat", highlightthickness=1)
         pub_box.insert("1.0", self.key_manager.pub_key)
-        pub_box.pack(padx=10, pady=5)
+        pub_box.pack(pady=5, padx=10)
         pub_box.config(state="disabled")
 
-        Button(frame, text='Copy', relief="raised", bd=3, cursor="hand2", command=lambda: copy_to_clipboard(self.key_manager.pub_key)).pack()
+        # Bottone per copiare
+        Button(frame, text='Copy', font=("Arial", 10, "bold"), bg="#4CAF50", fg="#FFFFFF", activebackground="#45A049", activeforeground="#FFFFFF", cursor="hand2", relief="flat", command=lambda: copy_to_clipboard(self.key_manager.pub_key)).pack(pady=(5, 10))
 
-        label2 = Label(frame, font=("Arial", 10, "bold"), fg="blue", bg="lightgrey", justify="left")
-        label2.pack(anchor="center", padx=10, pady=(10, 0))
+        # Messaggio di stato
+        label2 = Label(frame, text="", font=("Arial", 10), bg="#2E2E2E", fg="#FFFFFF", justify="center")
+        label2.pack(anchor="center", pady=(5, 10))
 
-        label = Label(frame, text="WARNING!\n\n- Upon closing the program, the keys (public and private) will be irreversibly changed, rendering the conversation inaccessible:", font=("Arial", 10, "bold"), fg="red", bg="lightgrey", justify="left")
-        label.pack(anchor="center", padx=10, pady=(10, 0))
-        label.bind('<Configure>', lambda e: label.config(wraplength=label.winfo_width()))
+        # Avviso
+        label = Label(
+            frame, 
+            text="WARNING!\n\n- Upon closing the program, the keys (public and private) will be irreversibly changed, rendering the conversation inaccessible.", 
+            font=("Arial", 10, "bold"), 
+            fg="#FF4C4C", 
+            bg="#2E2E2E", 
+            justify="left",
+            wraplength=400
+        )
+        label.pack(anchor="center", pady=(10, 20))
 
-        Button(self.key_window, text="Start Chat", command=self.key_window.destroy, relief="raised", bd=3, cursor="hand2").pack(pady=10)
+        # Bottone "Start Chat"
+        Button(self.key_window, text="Start Chat", font=("Arial", 12, "bold"), bg="#4CAF50", fg="#FFFFFF", activebackground="#45A049", activeforeground="#FFFFFF", cursor="hand2", relief="flat", command=self.key_window.destroy).pack(pady=20)
 
         self.key_window.mainloop()

@@ -13,7 +13,7 @@ def add_peer(new_ip, new_key):
     
     with open(path, "w") as file:
         json.dump(data, file, indent=4)
-    print("Peer aggiunto con successo!")
+    print("Peer succesfully added!")
 
 
 def get_ip_port(key):
