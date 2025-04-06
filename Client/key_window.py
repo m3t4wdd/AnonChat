@@ -41,7 +41,7 @@ class KeyWindow:
         # Avviso
         label = Label(
             frame, 
-            text="WARNING!\n\n- Upon closing the program, the keys (public and private) will be irreversibly changed, rendering the conversation inaccessible.", 
+            text="WARNING!\n\n- Upon closing the program, the keys (public and private) will be irreversibly changed, making the conversation inaccessible.", 
             font=("Arial", 10, "bold"), 
             fg="#FF4C4C", 
             bg="#2E2E2E", 
