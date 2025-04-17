@@ -1,10 +1,12 @@
-from tkinter import Tk, Frame, Label, Text, Button, Entry, Scrollbar, Canvas, messagebox
+from tkinter import Tk, Frame, Label, Button, Entry, Scrollbar, Canvas, messagebox
 import json, base64, vlc
 from datetime import datetime
 import enc_dec_msg as encryption
 
 class MainGUI:
-    """Gestisce la GUI e la logica della chat."""
+
+    """Handle GUI and Chat logic"""
+
     def __init__(self, client, key_manager):
         self.client = client
         self.key_manager = key_manager
@@ -63,7 +65,9 @@ class MainGUI:
         self.key_manager.clear_private_key()
 
     def display_message(self, message, sender="me"):
-        """Mostra un messaggio nella chat con uno stile moderno."""
+
+        """Display a message in the chat"""
+
         time = datetime.now().strftime("%H:%M")
         bubble_color = "#4CAF50" if sender == "me" else "#333333"
         text_color = "#FFFFFF"
@@ -73,7 +77,6 @@ class MainGUI:
 
         Label(bubble, text=message, font=("Arial", 10), bg=bubble_color, fg=text_color, wraplength=300, justify="left").pack()
         Label(bubble, text=time, font=("Arial", 8), bg=bubble_color, fg="#B3B3B3", anchor="e").pack(anchor="e")
-
         self.canvas.update_idletasks()
         self.canvas.yview_moveto(1)
 
@@ -126,3 +129,4 @@ class MainGUI:
         p = vlc.MediaPlayer("file/notification.mp3")
         p.play()
         self.display_message(message, sender="other")
+        

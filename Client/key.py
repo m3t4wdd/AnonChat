@@ -19,7 +19,7 @@ def gen_key():
         encryption_algorithm=serialization.NoEncryption()
     )
 
-    # Esportazione della chiave pubblica in formato PEM
+    # Exporting public key in PEM format
     public_pem = public_key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo

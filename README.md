@@ -17,12 +17,17 @@ AnonChat is a simple chat application written using sockets. Clients connect to 
 # Requirements
 Tkinter 8.6
 
+You also need VLC Media Player installed in your system:
+- Linux --> sudo apt update -y && sudo apt install vlc -y
+- Windows --> winget install --id=VideoLAN.VLC -e
+Check with: vlc --version
+
 # Run
 - server: python3 server.py
 - Client: python3 main.py
 
 # Author
-Reddit - [m3t4d00m](https://www.reddit.com/user/METRWD/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+m3t4d00m
 
 # Screenshots
 ![KeyManager](https://github.com/user-attachments/assets/632f5af4-bb4c-4703-a364-e5a276324b83)

@@ -7,7 +7,7 @@ def add_peer(new_ip, new_key):
     with open(path, "r") as file:
         data = json.load(file)
     
-    # Aggiunge il nuovo peer
+    # Add new peer
     new_peer = {"ip": new_ip, "public_key": new_key}
     data["peers"].append(new_peer)
     
@@ -20,7 +20,7 @@ def get_ip_port(key):
     with open(path, "r") as file:
         data = json.load(file)
 
-    # Trova il peer dalla public key
+    # Find peer from public key
     for peer in data["peers"]:
         if peer["public_key"] == key:
             ip, port = peer["ip"][0], peer["ip"][1]

@@ -1,20 +1,17 @@
-[project]
+[tool.poetry]
 name = "anonchat"
 version = "1.2.0"
 description = "A simple and anonymous chat application written in Python3 using sockets"
-authors = [
-    {name = "m3t4d00m"}
-]
+authors = ["m3t4d00m"]
 readme = "README.md"
-package-mode = false
-requires-python = ">=3.12"
-dependencies = [
-    "requests (>=2.32.3,<3.0.0)",
-    "cryptography (>=44.0.0,<45.0.0)",
-    "python-vlc (>=3.0.21203,<4.0.0)"
-]
 
+[tool.poetry.dependencies]
+python = ">=3.12"
+requests = ">=2.32.3,<3.0.0"
+cryptography = ">=44.0.0,<45.0.0"
+python-vlc = ">=3.0.21203,<4.0.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+

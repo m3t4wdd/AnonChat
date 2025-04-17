@@ -4,7 +4,9 @@ from key_window import KeyWindow
 from main_GUI import MainGUI
 
 class KeyManager:
-    """Gestisce la generazione e la gestione delle chiavi."""
+
+    """Manage key generation and management"""
+    
     def __init__(self):
         self.pub_key = None
         self.priv_key = None
@@ -21,7 +23,9 @@ class KeyManager:
 
 
 class Client:
-    """Gestisce la connessione al server e la comunicazione."""
+
+    """Manages server connection and communication"""
+
     def __init__(self, app):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.app = app
