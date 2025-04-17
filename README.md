@@ -20,7 +20,7 @@ Tkinter 8.6
 You also need VLC Media Player installed in your system:
 - Linux --> sudo apt update -y && sudo apt install vlc -y
 - Windows --> winget install --id=VideoLAN.VLC -e
-Check with: vlc --version
+- Check with: vlc --version
 
 # Run
 - server: python3 server.py
