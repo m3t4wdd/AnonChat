@@ -2,17 +2,22 @@
 A simple and anonymous chat application written in Python3 using sockets and tkinter as GUI.
 
 # About
-AnonChat is a simple chat application written using sockets. Clients connect to a server by transmitting only their IP address and the public key of the "session."
+AnonChat is a simple chat application written using sockets.
+Clients connect to a server by transmitting only their IP address and the public key of the "session".
 
-- The philosophy is that each time the program is opened, a "session" is created, it will be generated a pair of public and private keys. When the client is closed, these keys are permanently deleted (both from the server and the host PC), making it impossible to recover the chat history.
+- The philosophy is that each time the program is opened, a "session" is created, and a pair of public and private keys will be generated.
+
+- When the client is closed, these keys are permanently deleted (from both the server and the host PC), making it impossible to recover the chat history.
 
 - Messages are transmitted in JSON format and encrypted using RSA with SHA-256 (with the receiver public key) to ensure privacy and anonymity for users.
 
-- Server will create a json table that connect a specific peer (ip, port) to a public key, this because the server will understand who to deliver the message to
+- The server will create a JSON table that connects a specific peer (IP, port) to a public key, since the server has to understand where the message has to be delivered.
 
-- But what happen if 2 client from the same intranet over nat (so same IP), are connected to the server? the server will just create multiple entries with same IP but different port and public key.
+What happens if 2 clients from the same intranet over NAT (so same IP), are connected to the server?
+- The server will just create multiple entries with same IP but different port and public key.
 
-- Note: The private key is only stored on the host PC and is never transmitted to the server. Even if the message is intercepted, it cannot be decrypted without the private key, which is stored only on the client's host PC.
+- Note: The private key is only stored on the host PC and is never transmitted to the server.
+Even if the message gets intercepted, it cannot be decrypted without the private key, which is stored only on the client's host PC.
 
 # Requirements
 Tkinter 8.6
@@ -23,8 +28,8 @@ You also need VLC Media Player installed in your system:
 - Check with: vlc --version
 
 # Run
-- server: python3 server.py
-- Client: python3 main.py
+- server: <code>python3 server.py</code>
+- Client: <code>python3 main.py</code>
 
 # Author
 m3t4d00m
